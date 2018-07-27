@@ -17,8 +17,7 @@ passport.deserializeUser(async (id, done) => {
 
 passport.use('local', new LocalStrategy({
     usernameField: 'email',
-    passwordField: 'password',
-    passReqToCallback: false
+    passwordField: 'password'
 }, async (email, password, done) => {
     try {
         // 1) Check if the email already exists
