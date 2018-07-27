@@ -24,6 +24,7 @@ module.exports = {
             if (!user) { return res.status(200).json({ RetCode:0, RetVal:"用户名或密码错误" }) }
             req.logIn(user, function(err) {
               if (err) { return next(err); }
+              req.session.role=user.role;
               return res.status(200).json({ RetCode:1, RetVal:"验证成功" })
             });
         })(req, res, next);
@@ -43,6 +44,8 @@ module.exports = {
             }
             
             const hash = await User.hashPassword(req.value['body'].password);
+
+            delete req.value['body'].confirmationPassword;
             req.value['body'].password = hash;
 
             const newUser = new User(req.value['body']);

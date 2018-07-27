@@ -10,7 +10,7 @@ const passport = require('passport');
 require('./config/passport');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/poordb',{ useMongoClient: true });
+mongoose.connect('mongodb://localhost:27017/poordb',{ useNewUrlParser: true });
 
 const app = express();
 app.use(morgan('dev'));
@@ -34,8 +34,10 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use('/users', require('./routes/users'));
+
 app.use((req, res, next) => {
     res.status(404).json({RetCode:0,RetVal:'page not found'});
 });
 
-app.listen(6000, () => console.log('Server started listening on port 6000!'));
+app.listen(5050, () => console.log('Server started listening on port 5050!'));
