@@ -16,6 +16,21 @@ module.exports = {
         }
     },
 
+    validateMultiParam: (schema) => {
+        return (req,res,next) => {
+            const result = Joi.validate(req.params,schema);
+            if(result.error) {
+                //error happened
+                return res.status(400).json(result.error);
+            } else {
+                if(!req.value) req.value = {};
+                if(!req.value['params']) req.value['params'] = {};
+                req.value['params'] = result.value;
+                next();
+            }
+        }
+    },
+
     validateBody: (schema) => {
         return (req,res,next) => {
             const result = Joi.validate(req.body,schema);
@@ -39,6 +54,11 @@ module.exports = {
             role: Joi.string().required(),
             password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
             confirmationPassword: Joi.any().valid(Joi.ref('password')).required()
+        }),
+
+        userPaginationSchema:Joi.object().keys({
+            reqpage:Joi.number().min(1).required(),
+            reqsize:Joi.number().min(1).required(),
         }),
 
         idSchema: Joi.object().keys({

@@ -18,6 +18,41 @@ module.exports = {
         }
     },
 
+    index: async (req, res, next) => {
+        try {
+            const allRows = await User.find();
+            const allCount = allRows.length;
+            const returnRows = allRows.slice(0,10);
+            const curPage = 1;
+            const curPageCount = returnRows.length;
+            res.status(200).json({ RetCode:1, RetVal:'获取默认用户页信息', curPage, curPageCount, allCount,DataRows:returnRows });
+        } catch (error) {
+            next(error)
+        }
+    },
+
+    paginationParams: (req,res,next) => {
+        if(req.params.reqpage) req.params.reqpage = parseInt(req.params.reqpage)
+        if(req.params.reqsize) req.params.reqsize = parseInt(req.params.reqsize)
+        next();
+    },
+
+    pagination: async (req,res,next) => {
+        try {
+            console.log(req.value.params);
+            const reqPage = req.value.params.reqpage  ;
+            const reqPageSize = req.value.params.reqsize ;
+            const curItem = (reqPage-1)*reqPageSize ;
+            const allRows = await User.find();
+            const allCount = allRows.length;
+            const returnRows = allRows.slice(curItem,curItem+reqPageSize);
+            const curPageCount = returnRows.length;
+            res.status(200).json({ RetCode:1, RetVal:'获取用户分页信息', curPage: reqPage, curPageCount, allCount,DataRows:returnRows });
+        } catch (error) {
+            next(error)
+        }
+    },
+
     userLogin: (req, res, next) => {
         passport.authenticate('local', function(err, user, info) {
             if (err) { return next(err); }
