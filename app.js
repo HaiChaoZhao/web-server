@@ -35,6 +35,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/users', require('./routes/users'));
+app.use('/phs',require('./routes/poorHouse'));
 
 app.use((req, res, next) => {
     res.status(404).json({RetCode:0,RetVal:'page not found'});
