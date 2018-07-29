@@ -8,6 +8,8 @@ const { validateParam, validateMultiParam , validateBody, schemas }  = require('
 router.route('/').get(UsersController.index);
 router.route('/:reqpage-:reqsize').get([ UsersController.paginationParams, validateMultiParam(schemas.userPaginationSchema) ],UsersController.pagination)
 
+router.route('/update/:userId').patch([validateParam(schemas.idSchema,'userId'), validateBody(schemas.userUpdateSchema) ], UsersController.updateUser);
+
 router.route('/register').post(validateBody(schemas.userSchema) ,UsersController.newUser);
 
 router.route('/login').post(UsersController.isNotAuthenticated,UsersController.userLogin);

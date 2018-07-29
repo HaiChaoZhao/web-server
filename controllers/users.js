@@ -39,7 +39,6 @@ module.exports = {
 
     pagination: async (req,res,next) => {
         try {
-            console.log(req.value.params);
             const reqPage = req.value.params.reqpage  ;
             const reqPageSize = req.value.params.reqsize ;
             const curItem = (reqPage-1)*reqPageSize ;
@@ -90,4 +89,12 @@ module.exports = {
             next(error);
         }
     },
+
+    updateUser: async (req,res,next) => {
+        const { userId } = req.value.params;
+        const newUser = req.value.body;
+        const result = await User.findByIdAndUpdate(userId, newUser);
+        const resultUser = await result.save();
+        res.status(200).json({RetCode:1, RetVal:"操作成功", resultUser});
+    }
 }

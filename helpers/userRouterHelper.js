@@ -56,6 +56,13 @@ module.exports = {
             confirmationPassword: Joi.any().valid(Joi.ref('password')).required()
         }),
 
+        userUpdateSchema:Joi.object().keys({
+            email: Joi.string().email(),
+            username: Joi.string(),
+            agency: Joi.string(),
+            role: Joi.string()
+        }),
+
         userPaginationSchema:Joi.object().keys({
             reqpage:Joi.number().min(1).required(),
             reqsize:Joi.number().min(1).required(),
