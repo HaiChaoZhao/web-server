@@ -9,8 +9,6 @@ module.exports = {
 
     newPoorHouse: async (req,res,next) => {
         try {
-            const docCount = await poorHouse.estimatedDocumentCount();
-            req.body.number = docCount+1;
             const newpoorHouse = new poorHouse(req.body);
             const result = await newpoorHouse.save();
             res.status(201).json(result);

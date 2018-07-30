@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const poorRelationSchema = new Schema({
-    number: String,
     name: String,
     relationship: String,
     nationality: String,
@@ -14,7 +13,7 @@ const poorRelationSchema = new Schema({
     belong:{
             type: Schema.Types.ObjectId,
             ref: 'poorHouse'
-        },
+    },
 }, {
     timestamps: {
         createdAt: 'createdAt',
@@ -22,6 +21,6 @@ const poorRelationSchema = new Schema({
     }
 });
 
-const poorRelation = mongoose.model('poorHouse', poorRelationSchema);
+const poorRelation = mongoose.model('poorRelation', poorRelationSchema);
 
 module.exports = poorRelation ;

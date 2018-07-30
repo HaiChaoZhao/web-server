@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const poorHouseSchema = new Schema({
-    number: String,
     name: String,
     causeOfPoverty: String,
     helpMeasures: String,
@@ -17,7 +16,13 @@ const poorHouseSchema = new Schema({
     outOfPoverty:Boolean,
     outOfPovertyDate:String,
     returnToPoverty:Boolean,
-    returnToPovertyDate:String
+    returnToPovertyDate:String,
+    relation:[
+        {
+            type: Schema.Types.ObjectId,
+            ref:'poorRelation'
+        }
+    ]
 }, {
     timestamps: {
         createdAt: 'createdAt',
