@@ -31,11 +31,6 @@ module.exports = {
         }
     },
 
-    paginationParams: (req,res,next) => {
-        if(req.params.reqpage) req.params.reqpage = parseInt(req.params.reqpage)
-        if(req.params.reqsize) req.params.reqsize = parseInt(req.params.reqsize)
-        next();
-    },
 
     pagination: async (req,res,next) => {
         try {
@@ -58,7 +53,7 @@ module.exports = {
             if (!user) { return res.status(200).json({ RetCode:0, RetVal:"用户名或密码错误" }) }
             req.logIn(user, function(err) {
               if (err) { return next(err); }
-              req.session.role=user.role;
+              req.session.user=user;
               return res.status(200).json({ RetCode:1, RetVal:"验证成功" })
             });
         })(req, res, next);

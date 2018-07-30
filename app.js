@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
-    cookie: { maxAge: 60000 },
+    cookie: { maxAge: 7200000 },
     secret: 'haichao',
     saveUninitialized: false,
     resave: false

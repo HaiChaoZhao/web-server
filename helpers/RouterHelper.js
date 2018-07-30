@@ -63,13 +63,29 @@ module.exports = {
             role: Joi.string()
         }),
 
-        userPaginationSchema:Joi.object().keys({
+        
+        idSchema: Joi.object().keys({
+            param: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
+        }),
+        
+        paginationSchema:Joi.object().keys({
             reqpage:Joi.number().min(1).required(),
             reqsize:Joi.number().min(1).required(),
         }),
 
-        idSchema: Joi.object().keys({
-            param: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
+        poorHouseUpdateSchema:Joi.object().keys({
+            name: Joi.string(),
+            causeOfPoverty: Joi.string(),
+            helpMeasures: Joi.string(),
+            helpMeasuresAgency: Joi.string(),
+            helpMeasuresPlan:Joi.string(),
+            helpMeasuresPlanYear:Joi.string(),
+            responsible:Joi.string(),
+            progressInfo:Joi.string(),
+            outOfPoverty:Joi.string(),
+            outOfPovertyDate:Joi.string(),
+            returnToPoverty:Joi.string(),
+            returnToPovertyDate:Joi.string()
         })
     }
 
