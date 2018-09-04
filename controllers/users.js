@@ -6,16 +6,20 @@ module.exports = {
         if (req.isAuthenticated()) {
           return next();
         } else {
-          res.status(200).json({ RetCode:0, RetVal:"必须先登录" })
+          res.status(200).json({ RetCode:0, RetVal:"必须先登录" });
         }
     },
 
     isNotAuthenticated: (req, res, next) => {
         if (req.isAuthenticated()) {
-            res.status(200).json({ RetCode:0, RetVal:"您已经登录" })
+            res.status(200).json({ RetCode:1, RetVal:"您已经登录" });
         } else {
           return next();
         }
+    },
+
+    notAuthenticatedHandle:(req,res,next) => {
+        res.status(200).json({ RetCode:0, RetVal:"当前未登录" });
     },
 
     index: async (req, res, next) => {
@@ -54,7 +58,7 @@ module.exports = {
             req.logIn(user, function(err) {
               if (err) { return next(err); }
               req.session.user=user;
-              return res.status(200).json({ RetCode:1, RetVal:"验证成功" })
+              return res.status(200).json({ RetCode:1, RetVal:"验证成功", user })
             });
         })(req, res, next);
     },

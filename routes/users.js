@@ -5,7 +5,7 @@ const UsersController = require('../controllers/users');
 
 const { validateParam, validateMultiParam , validateBody, schemas }  = require('../helpers/RouterHelper');
 
-router.route('/').get(UsersController.index);
+router.route('/').get(UsersController.isNotAuthenticated,UsersController.notAuthenticatedHandle);
 router.route('/:reqpage-:reqsize').get([ validateMultiParam(schemas.paginationSchema) ],UsersController.pagination)
 
 router.route('/update/:userId').patch([validateParam(schemas.idSchema,'userId'), validateBody(schemas.userUpdateSchema) ], UsersController.updateUser);

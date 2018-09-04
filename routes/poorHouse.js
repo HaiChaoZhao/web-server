@@ -8,6 +8,8 @@ const poorHouseControllers = require('../controllers/poorHouse');
 router.route('/').get([isAuthenticated,poorHouseControllers.userAccess("无限制")], poorHouseControllers.getPoorHouse)
                 .post(isAuthenticated, poorHouseControllers.newPoorHouse);
 
+router.route('/:phName').get(isAuthenticated,)
+
 router.route('/:phId').patch([validateParam(schemas.idSchema,'phId'), validateBody(schemas.poorHouseUpdateSchema)],poorHouseControllers.updatePoorHouse)
                      
 

@@ -11,7 +11,7 @@ module.exports = {
         try {
             const newpoorHouse = new poorHouse(req.body);
             const result = await newpoorHouse.save();
-            res.status(201).json(result);
+            res.status(201).json({ RetCode:1, RetVal:1, DataRows:[result] });
         } catch (error) {
          next(error)   
         }
@@ -26,12 +26,20 @@ module.exports = {
         }
     },
 
+    getPoorHouseByName: async(req,res,next) => {
+        try {
+            
+        } catch (error) {
+            next(error)
+        }
+    },
+
     pagination: async (req,res,next) => {
         try {
             const reqPage = req.value.params.reqpage  ;
             const reqPageSize = req.value.params.reqsize ;
             const curItem = (reqPage-1)*reqPageSize ;
-            const allRows = await poorHouse.find();
+            const allRows = await poorHouse.find().populate('responsible').populate('relation') ;
             const allCount = allRows.length;
             const returnRows = allRows.slice(curItem,curItem+reqPageSize);
             const curPageCount = returnRows.length;

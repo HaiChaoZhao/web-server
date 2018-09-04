@@ -72,7 +72,6 @@ module.exports = {
             reqpage:Joi.number().min(1).required(),
             reqsize:Joi.number().min(1).required(),
         }),
-
         poorHouseUpdateSchema:Joi.object().keys({
             name: Joi.string(),
             causeOfPoverty: Joi.string(),

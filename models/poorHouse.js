@@ -13,9 +13,9 @@ const poorHouseSchema = new Schema({
         ref: 'user'
     },
     progressInfo:String,
-    outOfPoverty:Boolean,
+    outOfPoverty:String,
     outOfPovertyDate:String,
-    returnToPoverty:Boolean,
+    returnToPoverty:String,
     returnToPovertyDate:String,
     relation:[
         {
