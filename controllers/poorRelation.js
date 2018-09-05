@@ -28,7 +28,7 @@ module.exports = {
             poorHouseDoc.relation.push(newRelationDoc._id);
             await newRelationDoc.save();
             await poorHouseDoc.save();
-            res.status(201).json({ RetCode:'1',RetVal:'新建文档成功' })
+            res.status(201).json({ RetCode:'1',RetVal:'新建文档成功', DataRows:[newRelationDoc] })
         } catch (error) {
             next(error);
         }

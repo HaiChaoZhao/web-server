@@ -19,7 +19,11 @@ module.exports = {
     },
 
     notAuthenticatedHandle:(req,res,next) => {
-        res.status(200).json({ RetCode:0, RetVal:"当前未登录" });
+        if (req.isAuthenticated()) {
+            res.status(200).json({ RetCode:1, RetVal:"当前已登录" });
+          } else {
+            res.status(200).json({ RetCode:0, RetVal:"当前未登录" });
+          }
     },
 
     index: async (req, res, next) => {

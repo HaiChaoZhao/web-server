@@ -28,6 +28,8 @@ module.exports = {
 
     getPoorHouseByName: async(req,res,next) => {
         try {
+            const rows = await poorHouse.find({name:{$regex: req.params.phName, $options:'i'}})
+            res.status(201).json({ RetCode:1, RetVal:1,DataRows:rows })
             
         } catch (error) {
             next(error)

@@ -12,9 +12,11 @@ router.route('/update/:userId').patch([validateParam(schemas.idSchema,'userId'),
 
 router.route('/register').post(validateBody(schemas.userSchema) ,UsersController.newUser);
 
-router.route('/login').post(UsersController.isNotAuthenticated,UsersController.userLogin);
+router.route('/login').post(UsersController.isNotAuthenticated,UsersController.userLogin)
+                      .get(UsersController.notAuthenticatedHandle);    
 
 router.route('/logout').get(UsersController.isAuthenticated,UsersController.userLogout);
+
 
 
 
