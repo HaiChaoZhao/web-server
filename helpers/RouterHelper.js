@@ -1,9 +1,9 @@
 const Joi = require('joi');
 
 module.exports = {
-    validateParam: (schema, name) => {
+    validateParam: (schema, name, options) => {
         return (req, res, next) => {
-            const result = Joi.validate({ param:req['params'][name] },schema);
+            const result = Joi.validate({ param:req['params'][name] },schema,options);
             if(result.error) {
                 //error happened
                 return res.status(400).json(result.error);
@@ -16,9 +16,9 @@ module.exports = {
         }
     },
 
-    validateMultiParam: (schema) => {
+    validateMultiParam: (schema, options) => {
         return (req,res,next) => {
-            const result = Joi.validate(req.params,schema);
+            const result = Joi.validate(req.params,schema,options);
             if(result.error) {
                 //error happened
                 return res.status(400).json(result.error);

@@ -12,7 +12,8 @@ router.route('/search/:phName').get(isAuthenticated,poorHouseControllers.getPoor
 
 router.route('/:phId').patch([validateParam(schemas.idSchema,'phId'), validateBody(schemas.poorHouseUpdateSchema)],poorHouseControllers.updatePoorHouse)
                      
+router.route('/:reqpage-:reqsize-').get(validateMultiParam(schemas.paginationSchema,{ allowUnknown: true }),poorHouseControllers.pagination);
 
-router.route('/:reqpage-:reqsize').get(validateMultiParam(schemas.paginationSchema),poorHouseControllers.pagination);
+router.route('/:reqpage-:reqsize-:phName').get(validateMultiParam(schemas.paginationSchema,{ allowUnknown: true }),poorHouseControllers.pagination);
 
 module.exports = router;

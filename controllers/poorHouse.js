@@ -41,7 +41,12 @@ module.exports = {
             const reqPage = req.value.params.reqpage  ;
             const reqPageSize = req.value.params.reqsize ;
             const curItem = (reqPage-1)*reqPageSize ;
-            const allRows = await poorHouse.find().populate('responsible').populate('relation') ;
+            let allRows
+            if(req.value.params.phName&&req.value.params.phName!=''){
+                allRows = await poorHouse.find({name:{$regex: req.value.params.phName, $options:'i'}}).populate('responsible').populate('relation') ;
+            }else{
+                allRows = await poorHouse.find().populate('responsible').populate('relation') ;
+            }
             const allCount = allRows.length;
             const returnRows = allRows.slice(curItem,curItem+reqPageSize);
             const curPageCount = returnRows.length;

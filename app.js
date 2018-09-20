@@ -10,7 +10,7 @@ const passport = require('passport');
 require('./config/passport');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/poordb',{ useNewUrlParser: true });
+mongoose.connect('mongodb://zhc:cs19980722@ds163182.mlab.com:63182/poor',{ useNewUrlParser: true });
 
 const app = express();
 app.use(morgan('dev'));

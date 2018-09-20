@@ -11,7 +11,12 @@ module.exports = {
             const reqPage = req.params.reqpage  ;
             const reqPageSize = req.params.reqsize ;
             const curItem = (reqPage-1)*reqPageSize ;
-            const allRows = await poorRelation.find().populate('belong');
+            let allRows
+            if(req.params.phName&&req.params.phName!=''){
+                allRows = await poorRelation.find({name:{$regex: req.params.phName, $options:'i'}}).populate('belong') ;
+            }else{
+                allRows = await poorRelation.find().populate('belong') ;
+            }
             const allCount = allRows.length;
             const returnRows = allRows.slice(curItem,curItem+reqPageSize);
             const curPageCount = returnRows.length;
